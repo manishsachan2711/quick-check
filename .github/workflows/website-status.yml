@@ -17,10 +17,12 @@ jobs:
           if echo "$STATUS" | grep -E "200|301|302"; then
             echo "Website UP"
           else
-            curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
-              -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-              -d text="🚨 Website DOWN ❌
+            MESSAGE="🚨 Website DOWN ❌
 Status: $STATUS
 URL: https://example.com
 Time: $(date)"
+
+            curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
+              -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+              --data-urlencode text="$MESSAGE"
           fi
