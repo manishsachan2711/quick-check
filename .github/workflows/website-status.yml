@@ -1,1 +1,24 @@
+name: Website Status Check
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check website
+      run: |
+        if curl -Is https://example.com | head -n 1 | grep -E "200|301|302" > /dev/null; then
+          echo "Website UP"
+        else
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d text="🚨 Website DOWN ❌  
+          URL: https://example.com  
+          Time: $(date)"
+        fi
 
