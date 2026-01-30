@@ -18,7 +18,7 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d text="🚨 Website DOWN ❌  
-          URL: https://example.com  
+          URL: https://gateway-devspace-msachan.indev.ixo-ci.com/en/admin/login  
           Time: $(date)"
         fi
 
