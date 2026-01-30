@@ -12,13 +12,13 @@ jobs:
     steps:
     - name: Check website
       run: |
-        if curl -Is https://gateway-devspace-msachan.indev.ixo-ci.com/en/admin/login | head -n 1 | grep -E "200|301|302" > /dev/null; then
+        if curl -Is https://gateway-devspace-test.indev.ixo-ci.com/en/admin/login | head -n 1 | grep -E "200|301|302" > /dev/null; then
           echo "Website UP"
         else
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
           -d text="🚨 Website DOWN ❌  
-          URL: https://gateway-devspace-msachan.indev.ixo-ci.com/en/admin/login  
+          URL: https://gateway-devspace-test.indev.ixo-ci.com/en/admin/login  
           Time: $(date)"
         fi
 
